@@ -15,6 +15,8 @@ class HintCookieMiddleware(MiddlewareMixin):
     def process_request(self, request):
         try:
             hint_cookie_name = settings.SAML_HINT_COOKIE_NAME
+            if not hint_cookie_name:
+                raise AttributeError
         except AttributeError:
             raise ImproperlyConfigured(
                 "SAML_HINT_COOKIE_NAME not defined on use of HintCookieMiddleware")
